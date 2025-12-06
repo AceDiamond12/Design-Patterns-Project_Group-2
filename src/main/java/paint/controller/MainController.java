@@ -60,8 +60,6 @@ public class MainController {
         refreshUI();
     }
 
-    // --- Restored Missing Methods ---
-
     @FXML
     private void groupSelected() {
         ObservableList<Integer> indices = shapesList.getSelectionModel().getSelectedIndices();
@@ -70,7 +68,6 @@ public class MainController {
             return;
         }
 
-        // Create group (Note: this logic is simplified and not undoable via command yet)
         List<Shape> toGroup = new ArrayList<>();
         for (int i : indices) {
             toGroup.add(shapes.get(i));
@@ -117,8 +114,6 @@ public class MainController {
         refreshUI();
     }
 
-    // --------------------------------
-
     @FXML
     private void undo() {
         commandManager.undo();
@@ -135,6 +130,9 @@ public class MainController {
     private void saveFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Shapes");
+        // FIX: Add extension filter so it saves as .txt
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        
         File file = fileChooser.showSaveDialog(canvasPane.getScene().getWindow());
         
         if (file != null) {
@@ -142,7 +140,25 @@ public class MainController {
         }
     }
     
-    @FXML private void loadFile()   { info("Load", "LoadFromXML placeholder."); }
+    @FXML
+    private void loadFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Shapes");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        
+        File file = fileChooser.showOpenDialog(canvasPane.getScene().getWindow());
+        
+        if (file != null) {
+            // Load the shapes
+            List<Shape> loaded = new TxtSaveStrategy().load(file);
+            
+            // Clear current canvas and add loaded shapes
+            shapes.clear();
+            shapes.addAll(loaded);
+            refreshUI();
+        }
+    }
+    
     @FXML private void importFile() { info("Import", "Import placeholder."); }
 
     /* Helpers */

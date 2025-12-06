@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FileStrategy {
     void save(List<Shape> shapes, File file);
-    // You could also add 'load' here
+    List<Shape> load(File file);
 }
