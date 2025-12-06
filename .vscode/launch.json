@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch Paint via Maven",
+      "request": "launch",
+      "mainClass": "paint.Paint",
+      "preLaunchTask": "Maven: javafx:run",
+      "console": "integratedTerminal"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="paint.controller.MainController">
+
+    <top>
+        <HBox spacing="8" style="-fx-padding:8; -fx-background-color:#fafafa; -fx-border-color:#ddd; -fx-border-width:0 0 1 0;">
+            <HBox spacing="12">
+                <Label text="Shape" style="-fx-background-color:#fffaa6; -fx-padding:8 14; -fx-background-radius:6;"/>
+                <ComboBox fx:id="shapeBox" prefWidth="160"/>
+            </HBox>
+            <Separator orientation="VERTICAL"/>
+            <HBox spacing="12">
+                <ColorPicker fx:id="colorPicker"/>
+            </HBox>
+            <Separator orientation="VERTICAL"/>
+            
+            <Button fx:id="recolorBtn" text="Recolor" onAction="#recolorSelected" style="-fx-background-color:#ffc9de;"/>
+            <Button fx:id="moveBtn"    text="Move"    onAction="#moveSelected"    style="-fx-background-color:#cdeefa;"/>
+            <Button fx:id="copyBtn"    text="Copy"    onAction="#copySelected"    style="-fx-background-color:#ffd79d;"/>
+            <Button fx:id="resizeBtn"  text="Resize"  onAction="#resizeSelected"  style="-fx-background-color:#eec3e0;"/>
+            <Button fx:id="groupBtn"   text="Group"   onAction="#groupSelected"   style="-fx-background-color:#b9ffb0;"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.80">
+            <AnchorPane>
+                <Pane fx:id="canvasPane" prefWidth="900" prefHeight="540"
+                      style="-fx-background-color:#f6f7f9; -fx-border-color:#ddd; -fx-border-width:1;"
+                      onMouseClicked="#canvasClicked"/>
+            </AnchorPane>
+            <VBox spacing="6" style="-fx-padding:8; -fx-background-color:white;">
+                <Label text="Shapes" style="-fx-font-size:14; -fx-text-fill:#444;"/>
+                <ListView fx:id="shapesList" prefWidth="220" />
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="8" alignment="CENTER" style="-fx-padding:10; -fx-background-color:white; -fx-border-color:#ddd; -fx-border-width:1 0 0 0;">
+            <Button text="Load"  style="-fx-background-color:#fffaa6;" onAction="#loadFile"/>
+            <Button text="Save"  style="-fx-background-color:#b7f7b1;" onAction="#saveFile"/>
+            <Button text="Delete" style="-fx-background-color:#ffb3b8;" onAction="#deleteSelected"/>
+            <Button text="Undo"  style="-fx-background-color:#cdeefa;" onAction="#undo"/>
+            <Button text="Redo"  style="-fx-background-color:#ffd79d;" onAction="#redo"/>
+            <Button text="Import" style="-fx-background-color:#eec3e0;" onAction="#importFile"/>
+        </HBox>
+    </bottom>
+</BorderPane>
