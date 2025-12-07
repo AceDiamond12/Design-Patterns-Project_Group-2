@@ -3,13 +3,15 @@ package paint.command;
 import java.util.Stack;
 
 public class CommandManager {
+    // Stacks to store history
+    // مكدسات لحفظ السجل
     private final Stack<Command> undoStack = new Stack<>();
     private final Stack<Command> redoStack = new Stack<>();
 
     public void executeCommand(Command cmd) {
         cmd.execute();
         undoStack.push(cmd);
-        redoStack.clear(); // Once we do a new action, we can't redo old ones
+        redoStack.clear(); // Clear redo history on new action / مسح سجل الإعادة عند تنفيذ أمر جديد
     }
 
     public void undo() {

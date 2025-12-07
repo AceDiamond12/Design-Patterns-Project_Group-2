@@ -4,13 +4,22 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+// [COMPOSITE PATTERN] Treats a group of shapes as a single shape
+// [نمط Composite] يعامل مجموعة الأشكال كشكل واحد
 public class ShapeGroup implements Shape {
-    // This list holds the "children" shapes
+    
+    // A list to hold the children (individual shapes or other groups)
+    // قائمة تحتوي على الأشكال الفرعية
     private final List<Shape> children = new ArrayList<>();
 
-    // Methods to add/remove children
+    // Add a shape to the group
+    // إضافة شكل للمجموعة
     public void add(Shape s) { children.add(s); }
+    
+    // Remove a shape from the group
+    // حذف شكل من المجموعة
     public void remove(Shape s) { children.remove(s); }
+    
     public List<Shape> getChildren() { return children; }
 
     @Override
@@ -21,19 +30,22 @@ public class ShapeGroup implements Shape {
 
     @Override
     public Color getColor() {
-        // Return the color of the first child, or transparent if empty
+        // Return transparent if empty, or the color of the first child
+        // يرجع لون شفاف إذا كانت فارغة، أو لون أول عنصر
         return children.isEmpty() ? Color.TRANSPARENT : children.get(0).getColor();
     }
 
     @Override
     public void setColor(Color c) {
-        // When we set color on the group, we set it for ALL children
+        // Delegate: Update color for ALL children
+        // تفويض: يغير اللون لجميع الأشكال داخل المجموعة
         for (Shape s : children) s.setColor(c);
     }
 
     @Override
     public Shape copy() {
-        // Deep copy: Create a new group and copy all children into it
+        // [PROTOTYPE] Deep copy: Copy the group and all its children
+        // نسخ عميق: ينسخ المجموعة وكل ما بداخلها
         ShapeGroup clone = new ShapeGroup();
         for (Shape s : children) {
             clone.add(s.copy());
@@ -43,13 +55,15 @@ public class ShapeGroup implements Shape {
 
     @Override
     public void moveBy(double dx, double dy) {
-        // Move all children
+        // Delegate: Move ALL children
+        // تفويض: يحرك جميع الأشكال داخل المجموعة
         for (Shape s : children) s.moveBy(dx, dy);
     }
 
     @Override
     public void scaleBy(double f) {
-        // Scale all children
+        // Delegate: Scale ALL children
+        // تفويض: يغير حجم جميع الأشكال
         for (Shape s : children) s.scaleBy(f);
     }
 }
