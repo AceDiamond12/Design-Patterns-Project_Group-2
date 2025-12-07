@@ -4,7 +4,7 @@ import paint.model.Shape;
 import java.util.List;
 
 // Concrete Command: Adds a shape
-// أمر ملموس: إضافة شكل
+// أمر ملموس: إضافة شكل.
 public class AddShapeCommand implements Command {
     private final Shape shape;
     private final List<Shape> list;
